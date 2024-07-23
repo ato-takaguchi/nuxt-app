@@ -1,30 +1,19 @@
 <template>
   <div>
     <h1>Data from microCMS</h1>
-    <div v-if="error">
-      <p>Error: {{ error.message }}</p>
-    </div>
-    <div v-else>
-      <pre>{{ data }}</pre>
-    </div>
+    <pre>{{ data }}</pre>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useHttp } from '#app';
-
-const { $http } = useHttp();
+import { useHttp } from '#http';
 
 const data = ref(null);
-const error = ref(null);
+const http = useHttp();
 
 onMounted(async () => {
-  try {
-    const response = await $http.get('/blogpost');
-    data.value = response.data;
-  } catch (err) {
-    error.value = err;
-  }
+  const response = await http.get('/blogpost');
+  data.value = response.data;
 });
 </script>
