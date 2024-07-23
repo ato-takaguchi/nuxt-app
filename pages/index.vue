@@ -1,3 +1,4 @@
+// pages/index.vue
 <template>
   <div>
     <h1>Data from microCMS</h1>
@@ -6,14 +7,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
 import { useHttp } from '#http';
 
-const data = ref(null);
 const http = useHttp();
-
-onMounted(async () => {
-  const response = await http.get('/blogpost');
-  data.value = response.data;
-});
+const { data } = await http.get('/blogpost');
 </script>
